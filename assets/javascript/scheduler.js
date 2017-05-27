@@ -24,7 +24,8 @@ $(document).ready(function(){
 		var train = $('#trainName').val().trim();
 		var destination = $('#trainDestination').val().trim();
 		
-		var time = $('#trainTime').val().trim();	
+		var time = $('#trainTime').val().trim();
+		console.log("time: " + time);
 	
 		var frequency = $('#trainFrequency').val().trim();
 
@@ -63,14 +64,11 @@ $(document).ready(function(){
 		var trainFreq = childSnapshot.val().frequency;
 		console.log("trainFreq: " + trainFreq);
 
-		var nextTrain = childSnapshot.val().time;
+		var nextTrain = moment(childSnapshot.val().time, "HH:mm");
 		console.log("next train: " + nextTrain);
 
-		var nextTrainFormat = moment(nextTrain, "HH:mm");	
-		console.log("timeFormat: " + nextTrainFormat);
-
 		// calculate the minutes until the next train
-		var timeDiff = moment().diff(nextTrainFormat, "minutes");
+		var timeDiff = moment().diff(nextTrain, "minutes");
 		console.log("timeDiff: " + timeDiff);
 
 		var timeModulus = timeDiff % trainFreq;
