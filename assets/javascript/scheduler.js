@@ -15,7 +15,7 @@ $(document).ready(function(){
 	var database = firebase.database();
 
 	// capture button click
-	$('#addTrain').on('click', function(){
+	$('#addTrainBTN').on('click', function(){
 
 		// don't refrest the page
 		event.preventDefault();
@@ -25,8 +25,6 @@ $(document).ready(function(){
 		var destination = $('#trainDestination').val().trim();
 		
 		var time = $('#trainTime').val().trim();	
-		var timeFormat = moment(time, "HH:mm");	
-		console.log("timeFormat: " + timeFormat);
 	
 		var frequency = $('#trainFrequency').val().trim();
 
@@ -34,7 +32,7 @@ $(document).ready(function(){
 			train: train,
 			destination: destination,
 			frequency: frequency,
-			time: timeFormat
+			time: time
 		});
 
 		// clear text boxes
@@ -68,8 +66,11 @@ $(document).ready(function(){
 		var nextTrain = childSnapshot.val().time;
 		console.log("next train: " + nextTrain);
 
+		var nextTrainFormat = moment(nextTrain, "HH:mm");	
+		console.log("timeFormat: " + nextTrainFormat);
+
 		// calculate the minutes until the next train
-		var timeDiff = moment().diff(nextTrain, "minutes");
+		var timeDiff = moment().diff(nextTrainFormat, "minutes");
 		console.log("timeDiff: " + timeDiff);
 
 		var timeModulus = timeDiff % trainFreq;
