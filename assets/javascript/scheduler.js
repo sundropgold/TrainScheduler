@@ -1,5 +1,12 @@
 $(document).ready(function(){
 
+// 10:30 -> 12:00 -> 12:30
+// 10:00 -> 12:00 -> 12:10
+
+// 11:00 -> 12:00 -> 12:15
+// 14:00 -> 14:00 -> 14:00
+// 14:00 -> 14:00 -> 14:00
+
 	// Initialize Firebase
   var config = {
     apiKey: "AIzaSyAEReUQvmbKGNlfMJIuuxPWNTpbCSSjvoQ",
@@ -59,12 +66,12 @@ $(document).ready(function(){
 
 		// save in variables
 		var trainName = childSnapshot.val().train;
-		var trainDestination = childSnapshot.val().destination;
-		
+		var trainDestination = childSnapshot.val().destination;	
 		var trainFreq = childSnapshot.val().frequency;
 		console.log("trainFreq: " + trainFreq);
 
-		var nextTrain = moment(childSnapshot.val().time, "HH:mm");
+
+		var nextTrain = moment((childSnapshot.val().time), "HH:mm");
 		console.log("next train: " + nextTrain);
 
 		// calculate the minutes until the next train
@@ -74,22 +81,39 @@ $(document).ready(function(){
 		var timeModulus = timeDiff % trainFreq;
 		console.log("timeModulus: " + timeModulus);
 
-		var minutesLeft = trainFreq - timeModulus;
+		if (timeDiff < 0) {
+			// future time
 
-		var nextTrainArrival = moment().add(minutesLeft, "minutes").format("h:mm A");
-		console.log("nextTrainArrival: " + nextTrainArrival);
+			var nextTrainArrival = moment(nextTrain).format("h:mm A");
+			console.log("nextTrainArrival: " + nextTrainArrival);
 
-		addRow(trainName, trainDestination, trainFreq, nextTrainArrival);
+			var minutesLeft = moment(nextTrain).diff(moment(), "minutes");
+			console.log("minutesLeft (future): " + minutesLeft);
+		}
+
+		else {
+			var minutesLeft = trainFreq - timeModulus;
+			console.log("minutesLeft: " + minutesLeft);			
+
+			var nextTrainArrival = moment().add(minutesLeft, "minutes").format("h:mm A");
+			console.log("nextTrainArrival: " + nextTrainArrival);
+
+		}
+
+
+		addRow(trainName, trainDestination, trainFreq, nextTrainArrival, minutesLeft);
 
 	});
 
-	function addRow(name, destination, freq, arrival){
+	function addRow(name, destination, freq, arrival, minutes){
 
 		$('#addRowsHere').append("<tr>" +
 			"<td>" + name + "</td>" +
 			"<td>" + destination + "</td>" +
 			"<td>" + freq + "</td>" +
-			"<td>" + arrival + "</td>");
+			"<td>" + arrival + "</td>" +
+			"<td>" + minutes + "</td>");
+
 	}
 
 });
