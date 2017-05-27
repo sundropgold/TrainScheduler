@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>The Magical Train Scheduler!</title>
+
+	<!-- JQuery Link-->
+	<script
+	src="https://code.jquery.com/jquery-3.2.1.min.js"
+	integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4="
+	crossorigin="anonymous"></script>
+
+	<!-- Bootstrap Link -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+	<!-- Custom CSS -->
+	<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+
+	<!-- Firebase Link -->
+	<script src="https://www.gstatic.com/firebasejs/4.0.0/firebase.js"></script>
+
+	<!-- Moment JS Link -->
+	<script type="text/javascript" src="https://momentjs.com/downloads/moment.js"></script>
+
+</head>
+
+<body>
+
+	<div class="container">
+
+		<!-- Header -->
+		<div class="row">
+			<div class="col-lg-12">
+
+				<div class="jumbotron">
+				 	<h1>The Platform 9&frac34; Timetable</h1>
+				 	<p>Trains that will take you on a magical journey anywhere!</p>
+				 	<a class="btn btn-primary btn-lg" href="#addTrain" role="button">Add Train</a>
+				</div>
+
+			</div>
+		</div>
+
+		<!-- Train Schedule -->
+		<div class="row">
+			<div id="results">
+			</div>
+			<div class="col-lg-12">
+
+				<div class="panel panel-warning">
+					<!-- Default panel contents -->
+					<div class="panel-heading">Train Schedule</div>
+
+					<!-- Table -->
+					<table class="table" id="trainSched">
+						<thead>
+						<!-- Table Headings -->
+						<tr>
+							<th>Train Name</th>
+							<th>Destination</th>
+							<th>Frequency (min)</th>
+							<th>Next Arrival</th>
+						</tr>
+						</thead>
+
+						<!-- Table Responses -->
+						<tbody id="addRowsHere">
+
+						</tbody>
+
+					</table>
+				</div>
+
+			</div>
+
+		</div>
+
+		<!-- Add Train -->
+		<div class="row">
+			<div class="col-lg-12">
+			
+				<div class="panel panel-warning">
+				
+					<div class="panel-heading">Add Train</div>
+
+					<form id="addTrain">
+						<div class="form-group">
+
+							<label for="trainName">Train Name</label>
+							<input type="text" class="form-control" id="trainName" placeHolder="The Hogwarts Express">
+
+						</div>	
+
+						<div class="form-group">
+
+							<label for="trainDestination">Destination</label>
+							<input type="text" class="form-control" id="trainDestination" placeholder="Hogwarts">
+
+						</div>
+
+						<div class="form-group">
+							
+							<label for="trainTime">First Train Time (HH:mm - Military Time)</label>
+							<input type="text" class="form-control" id="trainTime" placeholder="12:00">
+
+						</div>
+
+						<div class="form-group">
+
+							<label for="trainFrequency">Frequency (min)</label>
+							<input type="number" class="form-control" id="trainFrequency" placeholder="30">
+
+						</div>
+
+						<input type="submit" class="btn btn-default" id="addTrain" value="submit">
+
+					</form>
+
+				</div>
+
+			</div>
+		</div>
+
+	</div>
+
+	<script type="text/javascript" src="assets/javascript/scheduler.js"></script>
+</body>
+
+</html>
